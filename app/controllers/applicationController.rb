@@ -2,8 +2,19 @@
 
 class ApplicationController < Sinatra::Base
     set :default_content_type, 'application/json'
+
+
+  
+
+
   
     # courses table
+    get '/courses/:id/students' do
+      course = Course.find(params[:id])
+      students = course.students.order(:name)
+      students.to_json
+    end
+    
     get '/courses' do
       course = Course.all.order(:course_name)
       course.to_json
@@ -220,5 +231,7 @@ class ApplicationController < Sinatra::Base
       post '/userdata' do
         {username: params[:username], pass: params[:password]}.to_json
       end
+
+     
   
   end
